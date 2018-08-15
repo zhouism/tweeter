@@ -8,15 +8,17 @@
     border-radius: 10px;
     display: flex;
     border: 1px solid #3b3b3b;
-    background-color: #d3d3d3;
+    background-color: whitesmoke;
     border-style: solid;
     border-width: 1px;
     padding: 0.5em;
 }
 
 main section h2 {
+    margin-top: 2%;
+    margin-bottom: 4%;
     font-size: 2em;
-    text-align: left;   
+    text-align: left; 
     border-bottom: solid #000000 1px;
 }
 

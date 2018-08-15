@@ -12,6 +12,10 @@
 
     <!-- App CSS -->
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/nav.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/new-tweet.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/tweets.css" type="text/css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 
     <!-- External JS -->
     <script type="text/javascript" src="/vendor/jquery-2.2.3.min.js"></script>
@@ -26,16 +30,13 @@
 
     <!-- Top nav bar (fixed) -->
     <nav id="nav-bar">
-      <link rel="stylesheet" href="/styles/nav.css" type="text/css" />
       <img class="logo" src="/images/bird.png">
       <span class="header">Tweeter</span>
     </nav>
 
     <!-- Page-specific (main) content here -->
     <main class="container">
-      <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
       <section class="new-tweet">
-          <link rel="stylesheet" href="/styles/new-tweet.css" type="text/css" />
           <h2>Compose Tweet</h2>
           <form id="new-tweet" action="/tweets/" method="POST">
             <textarea name="text" placeholder="What are you humming about?"></textarea>
@@ -45,6 +46,27 @@
             </span>
           </form>
         </section>
+          <div id="tweet-container" class= "tweet-container">
+            <article id="tweet">
+              <header>
+                <img class="profile" src="/images/profile.jpg">
+                <h2 class="tweet-head">Julia</h2>
+                <p class="tweet-handle">@julia</p>
+              </header>
+                <p class="tweet">
+                Q: Why was the JavaScript reality show cancelled after only one episode?
+                <br> A: People thought it seemed scripted.
+                </p>
+              <footer>
+                <p class= "timer">10 Mins Ago</p>
+                <div class="icons">
+                    <i class="fas fa-flag"></i>
+                    <i class="fas fa-heart"></i>
+                    <i class="fas fa-retweet"></i>
+                </div>
+              </footer>
+            </article>
+          </div>
     </main>
 
   </body>
