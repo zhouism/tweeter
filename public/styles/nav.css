@@ -1,0 +1,25 @@
+#nav-bar {
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    height: 80px;
+    width: 100%;
+    background-color: #00a087;
+    color: #e8fdff;
+    padding-left: 2em;
+    padding-right: 2em;
+  }
+
+#nav-bar .logo {
+    float: left;
+    width: 80px;
+    height: 80px;
+    position: relative;
+  }
+  
+#nav-bar .header {
+    float: left;
+    text-align: center;
+    font-size: 2em;
+    line-height: 2.5em;
+}

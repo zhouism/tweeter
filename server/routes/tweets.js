@@ -41,6 +41,12 @@ module.exports = function(DataHelpers) {
     });
   });
 
+  tweetsRoutes.post("/tweets", function(req, res) {
+    let headers = {
+      "Content-Type": "application/x-www-form-urlencoded"
+    }
+  });
+
   return tweetsRoutes;
 
 }
