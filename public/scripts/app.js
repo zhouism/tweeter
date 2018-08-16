@@ -27,27 +27,37 @@ $(document).ready(function() {
         `;
         return $tweet.append(html);
     }
-    var $tweet = createTweetElement(tweetData)[0];
     
-    console.log($tweet); // to see what it looks like
-  
-    $('#tweets-container').append($tweet); // to add it to the page so we can make sure it's got all the right elements, classes, etc.
-});
+    function renderTweets(tweets) {
+        for (tweetObject of tweets) {
+            let $tweet = createTweetElement(tweetObject);
+            $('#tweets-container').append($tweet);
+        }
+      };
+    
+    
+    //Post new tweets with Ajax
+    $('form#new-tweet').on('submit', function(postTweet) {
+      postTweet.preventDefault();
+      let data = $(this).serialize();
+      if (data.length <= 5) {
+        alert('Tweet something!');
+      }
+      if (data.length > 145) {
+        alert('Your Tweet is too long!');
+      } else {
+        $.post("/tweets", data).done(function(tweet) {
+          loadTweets();
+        });
+      }
+    })
 
-const tweetData = {
-    "user": {
-      "name": "Newton",
-      "avatars": {
-        "small":   "https://vanillicon.com/788e533873e80d2002fa14e1412b4188_50.png",
-        "regular": "https://vanillicon.com/788e533873e80d2002fa14e1412b4188.png",
-        "large":   "https://vanillicon.com/788e533873e80d2002fa14e1412b4188_200.png"
-      },
-      "handle": "@SirIsaac"
-    },
-    "content": {
-      "text": "If I have seen further it is by standing on the shoulders of giants"
-    },
-    "created_at": 1461116232227
-  }
-  
-  
+    //Get new tweets with Ajax
+    function loadTweets(tweet) {
+      $.ajax('/tweets', {method: 'GET' })
+      .then(function (tweet) {
+        renderTweets(tweet)
+      })
+    }
+    
+});
