@@ -44,7 +44,6 @@ $(document).ready(function() {
     $('form#new-tweet').on('submit', function(postTweet) {
       postTweet.preventDefault();
       let data = $('#tweet-text').val()
-      console.log(data)
       //;
       if (data.length <= 0) {       
         errorMessage('Tweet something!');
@@ -55,7 +54,6 @@ $(document).ready(function() {
         $.post("/tweets", $(this).serialize()).done(function(tweet) {
           errorMessage("");
           $('#tweet-text').val('');
-          
           loadTweets();
         });
       }
@@ -69,8 +67,9 @@ $(document).ready(function() {
       })
     }
     loadTweets();
-    //Highlights tweet box on compose button
+    //Toggles and highlights tweet box on compose button
     $('.compose').click(function(){
+      $('.new-tweet').toggle();
       $('#tweet-text').focus();
   });
     
