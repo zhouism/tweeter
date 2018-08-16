@@ -7,6 +7,16 @@
 $(document).ready(function() {
     function createTweetElement (tweetObject) {
         $tweet = $("<article>").addClass("tweet");
+        
+        //prevents cross-site scripting
+        function escape(str) {
+          var div = document.createElement('div');
+          div.appendChild(document.createTextNode(str));
+          return div.innerHTML;
+        }
+        const safeHTML = `<p>${escape(tweetObject.content.text)}</p>`;
+        //???TWEET TEXT CENTERED AFTER IMPLEMENTING safeHTML
+
         let html = `
         <header>
             <img class="profile" src=${tweetObject.user.avatars.small}>
@@ -14,7 +24,7 @@ $(document).ready(function() {
             <p class="tweet-handle">${tweetObject.user.handle}</p>
         </header>
             <p class="tweet">
-            ${tweetObject.content.text}
+            ${safeHTML}
             </p>
         <footer>
             <p class= "timer">${tweetObject.created_at}</p>
@@ -25,6 +35,7 @@ $(document).ready(function() {
             </div>
         </footer>
         `;
+       
         return $tweet.append(html);
     }
     
@@ -47,6 +58,8 @@ $(document).ready(function() {
         alert('Your Tweet is too long!');
       } else {
         $.post("/tweets", data).done(function(tweet) {
+          $('#tweet-text').val('');
+          $('form#new-tweet').load(data);
           loadTweets();
         });
       }
@@ -59,5 +72,10 @@ $(document).ready(function() {
         renderTweets(tweet)
       })
     }
+
+    //Highlights tweet box on compose button
+    $('.compose').click(function(){
+      $('#tweet-text').focus();
+  });
     
 });
