@@ -69,7 +69,7 @@ $(document).ready(function() {
     loadTweets();
     //Toggles and highlights tweet box on compose button
     $('.compose').click(function(){
-      $('.new-tweet').toggle();
+      $('.new-tweet').slideToggle();
       $('#tweet-text').focus();
   });
     
