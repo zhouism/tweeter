@@ -1,9 +1,3 @@
-/*
- * Client-side JS logic goes here
- * jQuery is already loaded
- * Reminder: Use (and do all your DOM work in) jQuery's document ready function
- */
-
 $(document).ready(function() {
     
     //prevents cross-site scripting
@@ -82,9 +76,6 @@ $(document).ready(function() {
     
     //Loads error message
     function errorMessage(message) {
-      // let errorHTML = 
-      // `<p class="error-message">${message}</p>`;
-      // $('.error-message').show(message)
       $(".error-message").text(message);
     }
 });
