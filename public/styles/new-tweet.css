@@ -29,6 +29,15 @@ main section form textarea {
     padding:3px;
 }
 
+main section .error-message {
+    color: red;
+    font-size: 75%;
+    text-align: left;
+    margin-top: 0;
+    margin-bottom: 1em;
+    /* display: none; */
+}
+
 main section form input {
     float: left;
 }

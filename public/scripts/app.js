@@ -5,18 +5,16 @@
  */
 
 $(document).ready(function() {
+    
+    //prevents cross-site scripting
+    function escape(str) {
+      var div = document.createElement('div');
+      div.appendChild(document.createTextNode(str));
+      return div.innerHTML;
+    }
+
     function createTweetElement (tweetObject) {
         $tweet = $("<article>").addClass("tweet");
-        
-        //prevents cross-site scripting
-        function escape(str) {
-          var div = document.createElement('div');
-          div.appendChild(document.createTextNode(str));
-          return div.innerHTML;
-        }
-        const safeHTML = `<p>${escape(tweetObject.content.text)}</p>`;
-        //???TWEET TEXT CENTERED AFTER IMPLEMENTING safeHTML
-
         let html = `
         <header>
             <img class="profile" src=${tweetObject.user.avatars.small}>
@@ -24,7 +22,7 @@ $(document).ready(function() {
             <p class="tweet-handle">${tweetObject.user.handle}</p>
         </header>
             <p class="tweet">
-            ${safeHTML}
+            ${escape(tweetObject.content.text)}
             </p>
         <footer>
             <p class= "timer">${tweetObject.created_at}</p>
@@ -40,9 +38,10 @@ $(document).ready(function() {
     }
     
     function renderTweets(tweets) {
+      $('#tweets-container').empty();
         for (tweetObject of tweets) {
             let $tweet = createTweetElement(tweetObject);
-            $('#tweets-container').append($tweet);
+            $('#tweets-container').prepend($tweet);
         }
       };
     
@@ -50,32 +49,42 @@ $(document).ready(function() {
     //Post new tweets with Ajax
     $('form#new-tweet').on('submit', function(postTweet) {
       postTweet.preventDefault();
-      let data = $(this).serialize();
-      if (data.length <= 5) {
-        alert('Tweet something!');
+      let data = $('#tweet-text').val()
+      console.log(data)
+      //;
+      if (data.length <= 0) {       
+        errorMessage('Tweet something!');
       }
-      if (data.length > 145) {
-        alert('Your Tweet is too long!');
+      else if (data.length > 140) {
+        errorMessage('Your Tweet is too long!');
       } else {
-        $.post("/tweets", data).done(function(tweet) {
+        $.post("/tweets", $(this).serialize()).done(function(tweet) {
+          errorMessage("");
           $('#tweet-text').val('');
-          $('form#new-tweet').load(data);
+          
           loadTweets();
         });
       }
     })
 
     //Get new tweets with Ajax
-    function loadTweets(tweet) {
+    function loadTweets() {
       $.ajax('/tweets', {method: 'GET' })
       .then(function (tweet) {
         renderTweets(tweet)
       })
     }
-
+    loadTweets();
     //Highlights tweet box on compose button
     $('.compose').click(function(){
       $('#tweet-text').focus();
   });
     
+    //Loads error message
+    function errorMessage(message) {
+      // let errorHTML = 
+      // `<p class="error-message">${message}</p>`;
+      // $('.error-message').show(message)
+      $(".error-message").text(message);
+    }
 });
